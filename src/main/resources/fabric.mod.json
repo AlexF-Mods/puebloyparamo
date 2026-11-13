@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "puebloyparamo",
+	"version": "${version}",
+	"name": "Pueblo y Páramo",
+	"description": "Frailejones en montañas y cumbres frías con bruma ambiental, arquitectura colonial y de pueblo (tejas de barro, bahareque, zócalos, adoquines, balcones, puerta tallada y farol) y mobiliario típico (Sillas Rimax, hamacas, olla de barro funcional y picó con música personalizada).",
+	"authors": [
+		"AlexF6"
+	],
+	"contact": {
+		"homepage": "https://github.com/AlexF6/puebloyparamo",
+		"sources": "https://github.com/AlexF6/puebloyparamo",
+		"issues": "https://github.com/AlexF6/puebloyparamo/issues"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/puebloyparamo/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.alexf6.puebloyparamo.PuebloYParamoMod"
+		],
+		"client": [
+			"io.github.alexf6.puebloyparamo.client.PuebloYParamoClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"gastronomia": "*",
+		"mitosyfauna": "*"
+	}
+}

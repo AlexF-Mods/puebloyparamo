@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "D  ",
+    "QQQ",
+    "Q Q"
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "D": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "puebloyparamo:silla_rimax_roja",
+    "count": 1
+  }
+}

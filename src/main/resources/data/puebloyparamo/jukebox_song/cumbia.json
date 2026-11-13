@@ -1,0 +1,10 @@
+{
+  "comparator_output": 12,
+  "description": {
+    "translate": "jukebox_song.puebloyparamo.cumbia"
+  },
+  "length_in_seconds": 24.0,
+  "sound_event": {
+    "sound_id": "puebloyparamo:music_disc.cumbia"
+  }
+}

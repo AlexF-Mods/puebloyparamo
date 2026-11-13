@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "puebloyparamo:teja_barro",
+    "puebloyparamo:teja_barro_stairs",
+    "puebloyparamo:teja_barro_slab",
+    "puebloyparamo:bahareque_encalado",
+    "puebloyparamo:zocalo_colonial",
+    "puebloyparamo:adoquin_colonial",
+    "puebloyparamo:adoquin_colonial_stairs",
+    "puebloyparamo:adoquin_colonial_slab",
+    "puebloyparamo:adoquin_colonial_wall",
+    "puebloyparamo:farol_colonial",
+    "puebloyparamo:olla_barro"
+  ]
+}

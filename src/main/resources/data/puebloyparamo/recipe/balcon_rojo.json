@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "PDP",
+    "P P"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "D": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "puebloyparamo:balcon_rojo",
+    "count": 4
+  }
+}

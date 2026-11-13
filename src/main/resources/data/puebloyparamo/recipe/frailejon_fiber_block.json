@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "FFF",
+    "FFF",
+    "FFF"
+  ],
+  "key": {
+    "F": "puebloyparamo:frailejon_fiber"
+  },
+  "result": {
+    "id": "puebloyparamo:frailejon_fiber_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,playing=false": {
+      "model": "puebloyparamo:block/pico"
+    },
+    "facing=east,playing=false": {
+      "model": "puebloyparamo:block/pico",
+      "y": 90
+    },
+    "facing=south,playing=false": {
+      "model": "puebloyparamo:block/pico",
+      "y": 180
+    },
+    "facing=west,playing=false": {
+      "model": "puebloyparamo:block/pico",
+      "y": 270
+    },
+    "facing=north,playing=true": {
+      "model": "puebloyparamo:block/pico_playing"
+    },
+    "facing=east,playing=true": {
+      "model": "puebloyparamo:block/pico_playing",
+      "y": 90
+    },
+    "facing=south,playing=true": {
+      "model": "puebloyparamo:block/pico_playing",
+      "y": 180
+    },
+    "facing=west,playing=true": {
+      "model": "puebloyparamo:block/pico_playing",
+      "y": 270
+    }
+  }
+}

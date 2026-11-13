@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": "puebloyparamo:adoquin_colonial"
+  },
+  "result": {
+    "id": "puebloyparamo:adoquin_colonial_wall",
+    "count": 6
+  }
+}

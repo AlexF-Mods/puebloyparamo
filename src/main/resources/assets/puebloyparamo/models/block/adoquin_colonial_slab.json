@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "puebloyparamo:block/adoquin_colonial",
+    "top": "puebloyparamo:block/adoquin_colonial",
+    "side": "puebloyparamo:block/adoquin_colonial"
+  }
+}

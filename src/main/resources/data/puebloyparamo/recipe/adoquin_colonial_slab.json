@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": "puebloyparamo:adoquin_colonial"
+  },
+  "result": {
+    "id": "puebloyparamo:adoquin_colonial_slab",
+    "count": 6
+  }
+}

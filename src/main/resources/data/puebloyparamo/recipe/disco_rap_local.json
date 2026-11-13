@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " F ",
+    "FMF",
+    " F "
+  ],
+  "key": {
+    "F": "minecraft:flint",
+    "M": "minecraft:amethyst_shard"
+  },
+  "result": {
+    "id": "puebloyparamo:disco_rap_local",
+    "count": 1
+  }
+}

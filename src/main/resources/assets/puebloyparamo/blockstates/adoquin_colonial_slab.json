@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "puebloyparamo:block/adoquin_colonial_slab"
+    },
+    "type=top": {
+      "model": "puebloyparamo:block/adoquin_colonial_slab_top"
+    },
+    "type=double": {
+      "model": "puebloyparamo:block/adoquin_colonial"
+    }
+  }
+}

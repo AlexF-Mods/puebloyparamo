@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,moist=false": {
+      "model": "puebloyparamo:block/frailejon_bottom"
+    },
+    "half=lower,moist=true": {
+      "model": "puebloyparamo:block/frailejon_bottom"
+    },
+    "half=upper,moist=false": {
+      "model": "puebloyparamo:block/frailejon_top"
+    },
+    "half=upper,moist=true": {
+      "model": "puebloyparamo:block/frailejon_top_moist"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "S S",
+    "WFW",
+    "S S"
+  ],
+  "key": {
+    "S": "minecraft:string",
+    "W": "#minecraft:wool",
+    "F": "puebloyparamo:frailejon_fiber"
+  },
+  "result": {
+    "id": "puebloyparamo:hamaca",
+    "count": 1
+  }
+}

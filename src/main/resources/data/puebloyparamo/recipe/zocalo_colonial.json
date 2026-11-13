@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "EEE",
+    "EAE"
+  ],
+  "key": {
+    "E": "puebloyparamo:bahareque_encalado",
+    "A": "minecraft:blue_dye"
+  },
+  "result": {
+    "id": "puebloyparamo:zocalo_colonial",
+    "count": 4
+  }
+}

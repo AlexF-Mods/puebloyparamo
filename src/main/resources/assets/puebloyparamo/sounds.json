@@ -1,0 +1,34 @@
+{
+  "music_disc.cumbia": {
+    "sounds": [
+      {
+        "name": "puebloyparamo:music_disc/cumbia",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.vallenato": {
+    "sounds": [
+      {
+        "name": "puebloyparamo:music_disc/vallenato",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.salsa": {
+    "sounds": [
+      {
+        "name": "puebloyparamo:music_disc/salsa",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.rap_local": {
+    "sounds": [
+      {
+        "name": "puebloyparamo:music_disc/rap_local",
+        "stream": true
+      }
+    ]
+  }
+}

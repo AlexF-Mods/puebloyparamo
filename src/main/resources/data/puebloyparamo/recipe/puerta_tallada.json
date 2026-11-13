@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WW",
+    "WN",
+    "WW"
+  ],
+  "key": {
+    "W": "minecraft:dark_oak_planks",
+    "N": "minecraft:gold_nugget"
+  },
+  "result": {
+    "id": "puebloyparamo:puerta_tallada",
+    "count": 3
+  }
+}

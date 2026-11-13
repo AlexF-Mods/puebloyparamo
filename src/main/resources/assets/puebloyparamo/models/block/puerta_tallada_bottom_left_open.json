@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "puebloyparamo:block/puerta_tallada_bottom",
+    "top": "puebloyparamo:block/puerta_tallada_top"
+  }
+}

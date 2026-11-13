@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "puebloyparamo:block/silla_rimax_azul"
+    },
+    "facing=east": {
+      "model": "puebloyparamo:block/silla_rimax_azul",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "puebloyparamo:block/silla_rimax_azul",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "puebloyparamo:block/silla_rimax_azul",
+      "y": 270
+    }
+  }
+}

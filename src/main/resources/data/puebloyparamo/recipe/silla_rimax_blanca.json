@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "D  ",
+    "QQQ",
+    "Q Q"
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "D": "minecraft:white_dye"
+  },
+  "result": {
+    "id": "puebloyparamo:silla_rimax_blanca",
+    "count": 1
+  }
+}

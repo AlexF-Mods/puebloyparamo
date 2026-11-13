@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB",
+    "CC"
+  ],
+  "key": {
+    "B": "minecraft:brick",
+    "C": "minecraft:terracotta"
+  },
+  "result": {
+    "id": "puebloyparamo:teja_barro",
+    "count": 4
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "puebloyparamo:block/frailejon_fiber_block_top",
+    "side": "puebloyparamo:block/frailejon_fiber_block_side"
+  }
+}

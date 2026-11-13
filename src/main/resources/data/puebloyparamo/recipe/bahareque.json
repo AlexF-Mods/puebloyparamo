@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SMS",
+    "MBM",
+    "SMS"
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "M": "minecraft:mud",
+    "B": "minecraft:bamboo"
+  },
+  "result": {
+    "id": "puebloyparamo:bahareque",
+    "count": 4
+  }
+}

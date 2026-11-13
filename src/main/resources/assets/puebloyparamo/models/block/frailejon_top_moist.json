@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "puebloyparamo:block/frailejon_top_moist"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "TTT"
+  ],
+  "key": {
+    "T": "puebloyparamo:teja_barro"
+  },
+  "result": {
+    "id": "puebloyparamo:teja_barro_slab",
+    "count": 6
+  }
+}

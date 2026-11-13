@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " F ",
+    "FMF",
+    " F "
+  ],
+  "key": {
+    "F": "minecraft:flint",
+    "M": "minecraft:blaze_powder"
+  },
+  "result": {
+    "id": "puebloyparamo:disco_salsa",
+    "count": 1
+  }
+}

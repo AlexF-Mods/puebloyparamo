@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " F ",
+    "FMF",
+    " F "
+  ],
+  "key": {
+    "F": "minecraft:flint",
+    "M": "minecraft:redstone"
+  },
+  "result": {
+    "id": "puebloyparamo:disco_vallenato",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "ITI",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "T": "minecraft:torch"
+  },
+  "result": {
+    "id": "puebloyparamo:farol_colonial",
+    "count": 1
+  }
+}

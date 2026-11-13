@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BBB",
+    "BCB",
+    "BBB"
+  ],
+  "key": {
+    "B": "puebloyparamo:bahareque",
+    "C": "minecraft:calcite"
+  },
+  "result": {
+    "id": "puebloyparamo:bahareque_encalado",
+    "count": 8
+  }
+}

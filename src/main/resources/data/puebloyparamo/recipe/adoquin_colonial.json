@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "CA",
+    "AC"
+  ],
+  "key": {
+    "C": "minecraft:cobblestone",
+    "A": "minecraft:andesite"
+  },
+  "result": {
+    "id": "puebloyparamo:adoquin_colonial",
+    "count": 4
+  }
+}

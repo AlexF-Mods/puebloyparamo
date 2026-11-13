@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "puebloyparamo:bahareque",
+    "puebloyparamo:balcon_azul",
+    "puebloyparamo:balcon_rojo",
+    "puebloyparamo:balcon_amarillo",
+    "puebloyparamo:puerta_tallada",
+    "puebloyparamo:pico"
+  ]
+}

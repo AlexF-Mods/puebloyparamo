@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " F ",
+    "FMF",
+    " F "
+  ],
+  "key": {
+    "F": "minecraft:flint",
+    "M": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "puebloyparamo:disco_cumbia",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "puebloyparamo:block/farol_colonial"
+    },
+    "hanging=true": {
+      "model": "puebloyparamo:block/farol_colonial_hanging"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PJP",
+    "RNY",
+    "PBP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "J": "minecraft:jukebox",
+    "R": "minecraft:redstone",
+    "N": "minecraft:note_block",
+    "Y": "minecraft:yellow_dye",
+    "B": "minecraft:light_blue_dye"
+  },
+  "result": {
+    "id": "puebloyparamo:pico",
+    "count": 1
+  }
+}

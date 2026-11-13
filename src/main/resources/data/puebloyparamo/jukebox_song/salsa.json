@@ -1,0 +1,10 @@
+{
+  "comparator_output": 14,
+  "description": {
+    "translate": "jukebox_song.puebloyparamo.salsa"
+  },
+  "length_in_seconds": 24.0,
+  "sound_event": {
+    "sound_id": "puebloyparamo:music_disc.salsa"
+  }
+}

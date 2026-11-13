@@ -9,6 +9,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -52,15 +53,18 @@ public class PicoBlockEntity extends BlockEntity {
     }
 
     public void insertRecord(ServerLevel level, ItemStack disc, Player player) {
+        Optional<JukeboxSong> song = resolveSong(level, disc);
         recordSlot.set(0, disc);
         ticksPlayed = 0;
-        songLengthTicks = resolveSongDurationTicks(level, disc);
+        songLengthTicks = song
+                .map(s -> Math.max(20, (int) Math.ceil(s.lengthInSeconds() * 20.0F)))
+                .orElse(20 * 30);
         setChanged();
 
         level.setBlock(worldPosition, getBlockState().setValue(PicoBlock.PLAYING, true), Block.UPDATE_ALL);
         level.playSound(null, worldPosition, SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.BLOCKS, 0.7F, 1.2F);
 
-        Identifier soundId = resolveSongSoundId(level, disc);
+        Identifier soundId = song.map(PicoBlockEntity::extractSoundId).orElse(STOP_SENTINEL);
         ModNetworking.sendPicoSound(level, worldPosition, soundId, true);
     }
 
@@ -114,29 +118,20 @@ public class PicoBlockEntity extends BlockEntity {
         }
     }
 
-    private static Identifier resolveSongSoundId(ServerLevel level, ItemStack stack) {
+    private static Optional<JukeboxSong> resolveSong(ServerLevel level, ItemStack stack) {
         JukeboxPlayable playable = stack.get(DataComponents.JUKEBOX_PLAYABLE);
-        if (playable != null) {
-            Optional<Holder<JukeboxSong>> holder = playable.song().unwrap(level.registryAccess());
-            if (holder.isPresent()) {
-                Identifier key = BuiltInRegistries.SOUND_EVENT.getKey(holder.get().value().soundEvent().value());
-                if (key != null) {
-                    return key;
-                }
-            }
+        if (playable == null) {
+            return Optional.empty();
         }
-        return STOP_SENTINEL;
+        return playable.song().unwrap(level.registryAccess()).map(Holder::value);
     }
 
-    private static int resolveSongDurationTicks(ServerLevel level, ItemStack stack) {
-        JukeboxPlayable playable = stack.get(DataComponents.JUKEBOX_PLAYABLE);
-        if (playable != null) {
-            Optional<Holder<JukeboxSong>> holder = playable.song().unwrap(level.registryAccess());
-            if (holder.isPresent()) {
-                return Math.max(20, (int) Math.ceil(holder.get().value().lengthInSeconds() * 20.0F));
-            }
-        }
-        return 20 * 30;
+    private static Identifier extractSoundId(JukeboxSong song) {
+        return song.soundEvent()
+                .unwrapKey()
+                .map(ResourceKey::identifier)
+                .or(() -> Optional.ofNullable(BuiltInRegistries.SOUND_EVENT.getKey(song.soundEvent().value())))
+                .orElse(STOP_SENTINEL);
     }
 
     @Override

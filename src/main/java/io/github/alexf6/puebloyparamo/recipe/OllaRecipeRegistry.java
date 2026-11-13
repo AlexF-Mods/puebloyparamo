@@ -116,7 +116,7 @@ public final class OllaRecipeRegistry {
                             IngredientGroup.of("minecraft:beef", "minecraft:porkchop"),
                             IngredientGroup.of("minecraft:potato")
                     ),
-                    "gastronomia:spicy_empanada",
+                    "gastronomia:empanada_aji",
                     2
             );
         }

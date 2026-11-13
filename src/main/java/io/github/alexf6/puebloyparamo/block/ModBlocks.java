@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -130,19 +130,19 @@ public final class ModBlocks {
 
     public static final Block BALCON_AZUL = register(
             "balcon_azul",
-            ColonialBalconyBlock::new,
+            FenceBlock::new,
             balconyProperties(MapColor.COLOR_BLUE)
     );
 
     public static final Block BALCON_ROJO = register(
             "balcon_rojo",
-            ColonialBalconyBlock::new,
+            FenceBlock::new,
             balconyProperties(MapColor.COLOR_RED)
     );
 
     public static final Block BALCON_AMARILLO = register(
             "balcon_amarillo",
-            ColonialBalconyBlock::new,
+            FenceBlock::new,
             balconyProperties(MapColor.COLOR_YELLOW)
     );
 
@@ -217,19 +217,6 @@ public final class ModBlocks {
                     .strength(2.0F, 6.0F)
                     .sound(SoundType.WOOD)
     );
-
-    public static List<Block> allBlocks() {
-        return List.of(
-                FRAILEJON, FRAILEJON_FIBER_BLOCK,
-                TEJA_BARRO, TEJA_BARRO_STAIRS, TEJA_BARRO_SLAB,
-                BAHAREQUE, BAHAREQUE_ENCALADO, ZOCALO_COLONIAL,
-                ADOQUIN_COLONIAL, ADOQUIN_COLONIAL_STAIRS, ADOQUIN_COLONIAL_SLAB, ADOQUIN_COLONIAL_WALL,
-                BALCON_AZUL, BALCON_ROJO, BALCON_AMARILLO,
-                PUERTA_TALLADA, FAROL_COLONIAL,
-                SILLA_RIMAX_BLANCA, SILLA_RIMAX_ROJA, SILLA_RIMAX_AZUL,
-                HAMACA, OLLA_BARRO, PICO
-        );
-    }
 
     private static BlockBehaviour.Properties balconyProperties(MapColor color) {
         return BlockBehaviour.Properties.of()

@@ -2,6 +2,7 @@ package io.github.alexf6.puebloyparamo.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -12,7 +13,21 @@ import java.util.Set;
  */
 public final class OllaLogic {
 
+    public static final String AIR_ID = "minecraft:air";
+
+    private static final Map<String, String> STANDARD_CONTAINERS = Map.of(
+            "puebloyparamo:agua_pura", "minecraft:glass_bottle",
+            "minecraft:potion", "minecraft:glass_bottle",
+            "minecraft:honey_bottle", "minecraft:glass_bottle",
+            "minecraft:milk_bucket", "minecraft:bucket",
+            "minecraft:water_bucket", "minecraft:bucket"
+    );
+
     private OllaLogic() {
+    }
+
+    private static boolean isEmptyId(String id) {
+        return id == null || id.isEmpty() || AIR_ID.equals(id);
     }
 
     /**
@@ -37,24 +52,50 @@ public final class OllaLogic {
     }
 
     /**
-     * Definición pura de receta de olla: ingredientes sin orden fijo, ítem resultante y cantidad.
+     * Estado actual de la ranura de salida para comprobar compatibilidad y apilado.
+     */
+    public record OutputSlotState(String itemId, int count, int maxStackSize) {
+        public OutputSlotState {
+            itemId = itemId == null ? "" : itemId;
+            count = Math.max(0, count);
+            maxStackSize = Math.max(1, maxStackSize);
+        }
+
+        public static OutputSlotState empty() {
+            return new OutputSlotState("", 0, 64);
+        }
+
+        public boolean isEmpty() {
+            return isEmptyId(itemId) || count <= 0;
+        }
+    }
+
+    /**
+     * Definición pura de receta de olla: ingredientes sin orden fijo, ítem resultante,
+     * cantidad y mapa opcional de recipientes devueltos por ingrediente consumido.
      */
     public record RecipeSpec(
             String recipeId,
             List<IngredientGroup> requirements,
             String resultItemId,
-            int resultCount
+            int resultCount,
+            Map<String, String> containerLeftovers
     ) {
         public RecipeSpec {
             recipeId = Objects.requireNonNull(recipeId, "recipeId");
             requirements = List.copyOf(Objects.requireNonNull(requirements, "requirements"));
             resultItemId = Objects.requireNonNull(resultItemId, "resultItemId");
+            containerLeftovers = Map.copyOf(Objects.requireNonNull(containerLeftovers, "containerLeftovers"));
             if (requirements.isEmpty() || requirements.size() > 4) {
                 throw new IllegalArgumentException("Una receta de olla requiere entre 1 y 4 ingredientes.");
             }
             if (resultCount < 1) {
                 throw new IllegalArgumentException("resultCount debe ser >= 1.");
             }
+        }
+
+        public RecipeSpec(String recipeId, List<IngredientGroup> requirements, String resultItemId, int resultCount) {
+            this(recipeId, requirements, resultItemId, resultCount, Map.of());
         }
     }
 
@@ -64,13 +105,11 @@ public final class OllaLogic {
     public static Optional<RecipeSpec> findMatchingRecipe(
             List<String> inputSlotIds,
             List<RecipeSpec> recipes,
-            String currentOutputId,
-            int currentOutputCount,
-            int maxStackSize
+            OutputSlotState outputState
     ) {
         List<String> nonEmptyInputs = new ArrayList<>();
         for (String id : inputSlotIds) {
-            if (id != null && !id.isEmpty() && !"minecraft:air".equals(id)) {
+            if (!isEmptyId(id)) {
                 nonEmptyInputs.add(id);
             }
         }
@@ -80,11 +119,25 @@ public final class OllaLogic {
 
         for (RecipeSpec spec : recipes) {
             if (matchesUnordered(nonEmptyInputs, spec.requirements())
-                    && canFitOutput(currentOutputId, currentOutputCount, spec.resultItemId(), spec.resultCount(), maxStackSize)) {
+                    && canFitOutput(outputState, spec.resultItemId(), spec.resultCount())) {
                 return Optional.of(spec);
             }
         }
         return Optional.empty();
+    }
+
+    public static Optional<RecipeSpec> findMatchingRecipe(
+            List<String> inputSlotIds,
+            List<RecipeSpec> recipes,
+            String currentOutputId,
+            int currentOutputCount,
+            int maxStackSize
+    ) {
+        return findMatchingRecipe(
+                inputSlotIds,
+                recipes,
+                new OutputSlotState(currentOutputId, currentOutputCount, maxStackSize)
+        );
     }
 
     /**
@@ -120,32 +173,28 @@ public final class OllaLogic {
         return false;
     }
 
-    public static boolean canFitOutput(
-            String currentOutputId,
-            int currentOutputCount,
-            String resultItemId,
-            int resultCount,
-            int maxStackSize
-    ) {
-        if (currentOutputId == null || currentOutputId.isEmpty() || "minecraft:air".equals(currentOutputId) || currentOutputCount <= 0) {
-            return resultCount <= maxStackSize;
+    public static boolean canFitOutput(OutputSlotState currentOutput, String resultItemId, int resultCount) {
+        if (currentOutput.isEmpty()) {
+            return resultCount <= currentOutput.maxStackSize();
         }
-        return currentOutputId.equals(resultItemId) && currentOutputCount + resultCount <= maxStackSize;
+        return currentOutput.itemId().equals(resultItemId)
+                && currentOutput.count() + resultCount <= currentOutput.maxStackSize();
     }
 
     /**
      * Indica qué recipiente devuelve un ingrediente líquido al consumirse en la olla.
      */
+    public static Optional<String> leftoverContainerFor(RecipeSpec recipe, String consumedItemId) {
+        if (recipe != null) {
+            String recipeSpecific = recipe.containerLeftovers().get(consumedItemId);
+            if (recipeSpecific != null) {
+                return Optional.of(recipeSpecific);
+            }
+        }
+        return leftoverContainerFor(consumedItemId);
+    }
+
     public static Optional<String> leftoverContainerFor(String consumedItemId) {
-        if ("puebloyparamo:agua_pura".equals(consumedItemId)
-                || "minecraft:potion".equals(consumedItemId)
-                || "minecraft:honey_bottle".equals(consumedItemId)
-                || "mitosyfauna:cafe_campesino".equals(consumedItemId)) {
-            return Optional.of("minecraft:glass_bottle");
-        }
-        if ("minecraft:milk_bucket".equals(consumedItemId) || "minecraft:water_bucket".equals(consumedItemId)) {
-            return Optional.of("minecraft:bucket");
-        }
-        return Optional.empty();
+        return Optional.ofNullable(STANDARD_CONTAINERS.get(consumedItemId));
     }
 }

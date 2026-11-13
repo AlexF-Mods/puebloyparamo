@@ -36,4 +36,14 @@ class HammockAndFrailejonLogicTest {
         assertEquals(3, FrailejonLogic.computeMistParticleCount(true, true, 110, false));
         assertEquals(1, FrailejonLogic.computeMistParticleCount(true, false, 70, false));
     }
+
+    @Test
+    void multiplayerSleepRequiresConfiguredPercentageOfEligiblePlayers() {
+        assertEquals(1, HammockLogic.requiredSleepersCount(1, 100));
+        assertEquals(3, HammockLogic.requiredSleepersCount(3, 100));
+        assertEquals(2, HammockLogic.requiredSleepersCount(3, 50));
+        assertFalse(HammockLogic.hasEnoughSleepers(1, 3, 100));
+        assertTrue(HammockLogic.hasEnoughSleepers(3, 3, 100));
+        assertTrue(HammockLogic.hasEnoughSleepers(2, 3, 50));
+    }
 }

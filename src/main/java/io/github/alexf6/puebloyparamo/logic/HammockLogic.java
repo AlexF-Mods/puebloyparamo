@@ -49,4 +49,22 @@ public final class HammockLogic {
         long safeTime = Math.max(0L, currentDayTime);
         return ((safeTime / DAY_LENGTH_TICKS) + 1L) * DAY_LENGTH_TICKS;
     }
+
+    /**
+     * Cantidad mínima de jugadores descansando en hamacas necesaria para avanzar la noche en multijugador.
+     */
+    public static int requiredSleepersCount(int eligiblePlayers, int sleepPercentage) {
+        if (eligiblePlayers <= 1 || sleepPercentage <= 0) {
+            return Math.min(1, Math.max(0, eligiblePlayers));
+        }
+        int clampedPercent = Math.min(100, sleepPercentage);
+        return Math.max(1, (int) Math.ceil((eligiblePlayers * clampedPercent) / 100.0));
+    }
+
+    public static boolean hasEnoughSleepers(int restingInHammocks, int eligiblePlayers, int sleepPercentage) {
+        if (eligiblePlayers <= 0) {
+            return false;
+        }
+        return restingInHammocks >= requiredSleepersCount(eligiblePlayers, sleepPercentage);
+    }
 }

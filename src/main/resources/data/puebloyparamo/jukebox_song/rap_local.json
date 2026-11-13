@@ -4,7 +4,5 @@
     "translate": "jukebox_song.puebloyparamo.rap_local"
   },
   "length_in_seconds": 24.0,
-  "sound_event": {
-    "sound_id": "puebloyparamo:music_disc.rap_local"
-  }
+  "sound_event": "puebloyparamo:music_disc.rap_local"
 }

@@ -121,12 +121,17 @@ public class HammockBlock extends HorizontalDirectionalBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && player.isCreative()) {
+        if (!level.isClientSide()) {
             BedPart part = state.getValue(PART);
             BlockPos partnerPos = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
             BlockState partnerState = level.getBlockState(partnerPos);
             if (partnerState.is(this) && partnerState.getValue(PART) != part) {
-                level.setBlock(partnerPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+                if (player.isCreative()) {
+                    level.setBlock(partnerPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+                } else if (part == BedPart.HEAD) {
+                    // Al romper la cabecera en supervivencia, destruimos el pie para ejecutar la loot table de part=foot
+                    level.destroyBlock(partnerPos, true, player);
+                }
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
@@ -173,19 +178,63 @@ public class HammockBlock extends HorizontalDirectionalBlock {
                 return InteractionResult.CONSUME;
             }
             case ALLOW -> {
-                long nextDawn = HammockLogic.computeNextDawnTick(serverLevel.getDayTime());
-                serverLevel.setDayTime(nextDawn);
-                if (serverLevel.isRaining() || serverLevel.isThundering()) {
-                    serverLevel.setWeatherParameters(6000, 0, false, false);
-                }
-                serverPlayer.heal(6.0F);
-                serverPlayer.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-                serverLevel.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.9F, 0.85F);
-                serverPlayer.displayClientMessage(Component.translatable("message.puebloyparamo.hammock.slept"), true);
+                handleNightOrStormRest(serverLevel, pos, state, serverPlayer);
                 return InteractionResult.CONSUME;
             }
         }
         return InteractionResult.PASS;
+    }
+
+    private static void handleNightOrStormRest(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer player) {
+        List<ServerPlayer> eligiblePlayers = level.players().stream()
+                .filter(p -> !p.isSpectator())
+                .toList();
+
+        if (eligiblePlayers.size() <= 1) {
+            advanceToDawn(level, pos, List.of(player));
+            return;
+        }
+
+        if (!isRestingInHammock(player)) {
+            sitInHammock(level, pos, state, player);
+        }
+
+        List<ServerPlayer> restingPlayers = eligiblePlayers.stream()
+                .filter(HammockBlock::isRestingInHammock)
+                .toList();
+
+        int needed = HammockLogic.requiredSleepersCount(eligiblePlayers.size(), 100);
+        if (HammockLogic.hasEnoughSleepers(restingPlayers.size(), eligiblePlayers.size(), 100)) {
+            for (ServerPlayer sleeper : restingPlayers) {
+                if (sleeper.isPassenger()) {
+                    sleeper.stopRiding();
+                }
+            }
+            advanceToDawn(level, pos, restingPlayers);
+        } else {
+            player.displayClientMessage(
+                    Component.translatable("message.puebloyparamo.hammock.waiting", restingPlayers.size(), needed),
+                    true
+            );
+        }
+    }
+
+    private static boolean isRestingInHammock(ServerPlayer player) {
+        return player.getVehicle() instanceof SeatEntity seat
+                && seat.level().getBlockState(seat.blockPosition()).getBlock() instanceof HammockBlock;
+    }
+
+    private static void advanceToDawn(ServerLevel level, BlockPos pos, List<ServerPlayer> sleepers) {
+        long nextDawn = HammockLogic.computeNextDawnTick(level.getDayTime());
+        level.setDayTime(nextDawn);
+        if (level.isRaining() || level.isThundering()) {
+            level.setWeatherParameters(6000, 0, false, false);
+        }
+        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.9F, 0.85F);
+        for (ServerPlayer sleeper : sleepers) {
+            sleeper.resetStat(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
+            sleeper.displayClientMessage(Component.translatable("message.puebloyparamo.hammock.slept"), true);
+        }
     }
 
     private static boolean sitInHammock(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer player) {

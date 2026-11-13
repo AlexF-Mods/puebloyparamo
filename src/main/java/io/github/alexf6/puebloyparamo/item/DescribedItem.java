@@ -12,15 +12,18 @@ import net.minecraft.world.level.Level;
 import java.util.function.Consumer;
 
 /**
- * Ítem consumible (agua pura o plato cocinado en Olla de barro) con descripción traducible
- * y efectos culturales adicionales al finalizar su consumo.
+ * Ítem del mod con descripción traducible y efecto opcional al terminar de consumirse.
  */
-public class PuebloConsumableItem extends Item {
+public class DescribedItem extends Item {
 
     private final String tooltipKey;
     private final Consumer<LivingEntity> onConsume;
 
-    public PuebloConsumableItem(Properties properties, String tooltipKey, Consumer<LivingEntity> onConsume) {
+    public DescribedItem(Properties properties, String tooltipKey) {
+        this(properties, tooltipKey, null);
+    }
+
+    public DescribedItem(Properties properties, String tooltipKey, Consumer<LivingEntity> onConsume) {
         super(properties);
         this.tooltipKey = tooltipKey;
         this.onConsume = onConsume;

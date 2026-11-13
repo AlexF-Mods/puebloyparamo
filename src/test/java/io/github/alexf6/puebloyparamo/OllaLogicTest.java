@@ -6,6 +6,7 @@ import io.github.alexf6.puebloyparamo.logic.OllaLogic.RecipeSpec;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -79,8 +80,16 @@ class OllaLogicTest {
 
     @Test
     void returnsExpectedContainerLeftovers() {
+        RecipeSpec custom = new RecipeSpec(
+                "compat_test",
+                List.of(IngredientGroup.of("mod:jugo")),
+                "puebloyparamo:sancocho",
+                1,
+                Map.of("mod:jugo", "minecraft:glass_bottle")
+        );
         assertEquals(Optional.of("minecraft:glass_bottle"), OllaLogic.leftoverContainerFor("puebloyparamo:agua_pura"));
         assertEquals(Optional.of("minecraft:bucket"), OllaLogic.leftoverContainerFor("minecraft:milk_bucket"));
+        assertEquals(Optional.of("minecraft:glass_bottle"), OllaLogic.leftoverContainerFor(custom, "mod:jugo"));
         assertTrue(OllaLogic.leftoverContainerFor("minecraft:potato").isEmpty());
     }
 }

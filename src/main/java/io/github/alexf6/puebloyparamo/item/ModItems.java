@@ -154,7 +154,7 @@ public final class ModItems {
     }
 
     private static Item registerSimple(String name) {
-        Item item = register(name, p -> new PuebloConsumableItem(p, "item.puebloyparamo." + name + ".desc", null));
+        Item item = register(name, p -> new DescribedItem(p, "item.puebloyparamo." + name + ".desc"));
         ALL_ITEMS.add(item);
         return item;
     }
@@ -183,7 +183,7 @@ public final class ModItems {
             if (remainder != null) {
                 configured = configured.usingConvertsTo(remainder);
             }
-            return new PuebloConsumableItem(configured, "item.puebloyparamo." + name + ".desc", effect);
+            return new DescribedItem(configured, "item.puebloyparamo." + name + ".desc", effect);
         });
         ALL_ITEMS.add(item);
         FOOD_ITEMS.add(item);

@@ -44,17 +44,12 @@ public class ClayPotScreen extends AbstractContainerScreen<ClayPotMenu> {
             int arrowWidth = Math.max(1, (progress * 24) / total);
             graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 84, y + 34, 176.0F, 14.0F, arrowWidth, 16, 256, 256);
         }
-    }
 
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        int x = (this.width - this.imageWidth) / 2;
-        int y = (this.height - this.imageHeight) / 2;
+        // Dibujar estado de calor debajo del título (y + 16) antes de slots y tooltips
         Component status = this.menu.isHeated()
                 ? Component.translatable("container.puebloyparamo.olla_barro.heated")
                 : Component.translatable("container.puebloyparamo.olla_barro.needs_heat");
         int color = this.menu.isHeated() ? 0xFF3E7A2B : 0xFF9C352B;
-        graphics.text(this.font, status, x + 8, y + 70, color, false);
+        graphics.text(this.font, status, x + 8, y + 16, color, false);
     }
 }

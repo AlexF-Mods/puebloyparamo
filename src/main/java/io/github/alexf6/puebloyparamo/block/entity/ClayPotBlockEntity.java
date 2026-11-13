@@ -119,14 +119,14 @@ public class ClayPotBlockEntity extends BlockEntity implements WorldlyContainer,
             inputIds.add(stack.isEmpty() ? "" : BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
         }
         ItemStack outStack = items.get(OUTPUT_SLOT);
-        String outId = outStack.isEmpty() ? "" : BuiltInRegistries.ITEM.getKey(outStack.getItem()).toString();
-        return OllaLogic.findMatchingRecipe(
-                inputIds,
-                OllaRecipeRegistry.getRecipes(),
-                outId,
-                outStack.getCount(),
-                outStack.isEmpty() ? 64 : outStack.getMaxStackSize()
-        );
+        OllaLogic.OutputSlotState outputState = outStack.isEmpty()
+                ? OllaLogic.OutputSlotState.empty()
+                : new OllaLogic.OutputSlotState(
+                        BuiltInRegistries.ITEM.getKey(outStack.getItem()).toString(),
+                        outStack.getCount(),
+                        outStack.getMaxStackSize()
+                );
+        return OllaLogic.findMatchingRecipe(inputIds, OllaRecipeRegistry.getRecipes(), outputState);
     }
 
     private void finishCooking(Level level, BlockPos pos, OllaLogic.RecipeSpec recipe) {
@@ -145,7 +145,7 @@ public class ClayPotBlockEntity extends BlockEntity implements WorldlyContainer,
             }
             String consumedId = BuiltInRegistries.ITEM.getKey(in.getItem()).toString();
             in.shrink(1);
-            Optional<String> containerId = OllaLogic.leftoverContainerFor(consumedId);
+            Optional<String> containerId = OllaLogic.leftoverContainerFor(recipe, consumedId);
             if (containerId.isPresent()) {
                 Item containerItem = BuiltInRegistries.ITEM.getValue(Identifier.parse(containerId.get()));
                 ItemStack leftover = new ItemStack(containerItem);
